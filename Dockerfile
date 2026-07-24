@@ -1,10 +1,13 @@
-from flask import Flask
+FROM python:3.11-slim
 
-app = Flask(__name__)
+WORKDIR /app
 
-@app.route('/')
-def hello():
-    return 'Hello, world!'
+COPY requirements.txt .
 
-if __name__ == '__main__':
-    app.run()
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY . .
+
+EXPOSE 5000
+
+CMD ["python", "app.py"]
